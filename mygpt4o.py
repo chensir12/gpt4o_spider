@@ -46,6 +46,8 @@ def session():
    ssion.post("https://chat1688.xyz/auth/login?carid=5.3-p", data=data, proxies=proxies, headers=headers)
    headers
 
+
+   # 保存了cookie的会话会有会话列表，解析会话列表，并想办法让流式的输出能得到
    ssion.post("https://chat1688.xyz/backend-api/conversation")
 
 
