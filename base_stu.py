@@ -168,11 +168,22 @@ def session():
       "http": "http://%(user)s:%(pwd)s@%(proxy)s/" % {"user": username, "pwd": password, "proxy": tunnel},
       "https": "http://%(user)s:%(pwd)s@%(proxy)s/" % {"user": username, "pwd": password, "proxy": tunnel}
    }
+
+   proxies1 = {
+      "http": "218.87.205.59:22352",
+      "https": "218.87.205.59:22352",
+   }
    # 1. 创建session对象，可以保存Cookie值
    ssion = requests.session()
    # 2. 处理 headers
    headers = {
-      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"}
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
+      "Accept": "application/json, text/plain, */*",
+      "Accept-Encoding": "gzip, deflate, br, zstd",
+      "Accept-Language": "zh-TW,zh-CN;q=0.9,zh;q=0.8",
+      "Content-Length": "20",
+      "Content-Type": "application/json",
+   }
    # 3. 需要登录的用户名和密码
    data = {"usertoken": "5df4396d-9f", "action": "default"}
    # 4. 发送附带用户名和密码的请求，并获取登录后的Cookie值，保存在ssion里
@@ -180,8 +191,11 @@ def session():
    # ssion.post("https://chat1688.xyz/carpage", proxies=proxies)
    # https://chat1688.xyz/carpage
    # 5. ssion包含用户登录后的Cookie值，可以直接访问那些登录后才可以访问的页面
-   response = ssion.get("https://chat1688.xyz/list",headers=headers)
-   response = ssion.get("https://chat1688.xyz/list", headers=headers)
+   # response = ssion.get("https://chat1688.xyz/list",headers=headers)
+
+   req_params = {"page": "1", "size": "50"}
+   response = ssion.get("https://chat1688.xyz/carpage", data=req_params, headers=headers)
+
    # 6. 打印响应内容
    print(response.text)
    with open("偷的gpt.html", "wb") as f:
