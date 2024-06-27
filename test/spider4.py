@@ -92,3 +92,15 @@ links = soup.find_all(href=re.compile(r'http://example.com/'))
 #得到所以的链接
 for link in links:
    print(link["href"])
+
+print(soup.select('.sister'))
+
+tags = soup.select(".story > .sister")
+for tag in tags:
+   print(tag)
+
+print(soup.select('#link1'))
+
+print(soup.select('p #link1'))
+
+print(soup.select("head > title"))
